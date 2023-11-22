@@ -1,165 +1,143 @@
+import DashboardWrapper from "@/components/layout/DashboardWrapper";
+import Guage from "@/components/utility/Guage";
 import Head from "@/components/utility/Head";
 import {
-  FaClock,
-  FaCommentDots,
-  FaDoorOpen,
-  FaFolder,
-  FaLockOpen,
-  FaPencilAlt,
-  FaTrash,
-  FaUser,
+  FaChevronDown,
+  FaCreditCard,
+  FaExclamationTriangle,
+  FaLock,
+  FaMailBulk,
+  FaUserAlt,
 } from "react-icons/fa";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { getFaviconUrl } from "@/util/functions";
-import SideBarWrapper from "@/components/layout/SideBar";
-import DashboardWrapper from "@/components/layout/DashboardWrapper";
+import { IoIosMail } from "react-icons/io";
 
-export default function Home() {
+export default function App() {
   return (
     <div>
-      <Head title="Your Vault" />
+      <Head title="Purevault" />
       <DashboardWrapper>
-        <div className="flex gap-6 flex-col">
-          <div className="w-full">
-            <p>Folders</p>
-            <div className="grid grid-cols-2 w-full md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((item, i) => (
-                <Folder key={i} />
+        <div className="grid grid-cols-2 gap-10 p-2">
+          <div className="">
+            <div className="grid grid-cols-4 gap-2 ">
+              {[
+                {
+                  name: "Passwords",
+                  count: 10,
+                  icon: <FaLock />,
+                  color: "#4299E1",
+                },
+                {
+                  name: "Cards",
+                  count: 2,
+                  icon: <FaCreditCard />,
+                  color: "#48BB78",
+                },
+                {
+                  name: "Identities",
+                  count: 1,
+                  icon: <FaUserAlt />,
+                  color: "#ECC94B",
+                },
+                {
+                  name: "At Risk!",
+                  count: 1,
+                  icon: <FaExclamationTriangle />,
+                  color: "#F56565",
+                },
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="bg-background-secondary cursor-pointer p-5 rounded-2xl grid grid-cols-2 gap-10 gap-y-5 shadow-lg hover:scale-[1.02] duration-200"
+                >
+                  <div
+                    style={{ backgroundColor: stat.color }}
+                    className="p-3 rounded-full h-10 w-10"
+                  >
+                    {stat.icon}
+                  </div>
+                  <div className="center">
+                    <p className="font-black text-3xl">{stat.count}</p>
+                  </div>
+                  <div className="col-span-2 opacity-50 text-sm">
+                    {stat.name}
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
-          <div className="w-full">
-            <div className="my-3">
-              <p className="text-white">Items</p>
-              <div className="w-ful h-2 bg-background-secondary/50 rounded-md"/>
+            <div className=" w-full mt-5">
+              <p className="px-10">Recently Used</p>
+              <div className="gap-1">
+                <div className="grid grid-cols-2 gap-2">
+                  {[1, 2, 3, 4, 5, 6].map((item, i) => (
+                    <div className="bg-background-secondary p-3 shadow-xl rounded-2xl hover:scale-[1.02] duration-300 w-full flex justify-between cursor-pointer">
+                      <div className="flex gap-3">
+                        <div className="shadow-lg shadow-background-primary rounded-full">
+                          <img
+                            className="w-12 rounded-full"
+                            src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${"https://discord.com"}&size=128`}
+                          />
+                        </div>
+                        <div>
+                          <p>Discord</p>
+                          <div className="flex items-center gap-1 opacity-50">
+                            <IoIosMail />
+                            <p className="text-sm">discord@thyke.dev</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex flex-col justify-center items-end">
+                        <div className="opacity-50">2h ago</div>
+                        <div className="text-xl">
+                          <FaChevronDown />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="grid grid-cols-2 w-full md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((item, i) => (
-                <File key={i} />
+          </div>
+          <div className="">
+            <div className="bg-background-secondary shadow-xl p-3 rounded-xl w-full h-full">
+              <div>
+                <p>Your Web Stats</p>
+              </div>
+              <div className=" overflow-hidden">
+                <div className="scale-150  p-10">
+                  <Guage progress={50} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-span-2">
+            Frequent Sites
+            <div className="grid-cols-6 grid gap-2">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((favorite, i) => (
+                <div key={i} className="bg-background-secondary rounded-xl">
+                  <div
+                    style={{
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                      backgroundImage: `url(https://api.apiflash.com/v1/urltoimage?access_key=6c73da62ff0f43aa8911af5558e97484&wait_until=page_loaded&url=https://discord.com)`,
+                    }}
+                    className="w-full flex items-center justify-center relative rounded-t-xl"
+                  >
+                    <div className="w-full h-full bg-black/90 absolute z-0 rounded-t-xl" />
+
+                    <div className="p-7 z-10">
+                      <img
+                        className="w-14 rounded-full"
+                        src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${"https://discord.com"}&size=128`}
+                      />
+                    </div>
+                  </div>
+                  <div className="p-3"></div>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </DashboardWrapper>
-    </div>
-  );
-}
-
-function File() {
-  return (
-    <div className="relative">
-      <div className="bg-background-secondary p-3 rounded-md  shadow-md hover:bg-opacity-75 cursor-pointer">
-        <div className="flex gap-3 items-center">
-          <div
-            style={{
-              background: `url(https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${"https://discord.com"}&size=64)`,
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-            }}
-            className="p-3 bg-background-primary/50 rounded-full shadow-md bg-contain"
-          ></div>
-          <div className="text-xs w-4/6">
-            <p className="text-white/50">Discord</p>
-            <p className="text-white/75">discord@thyke.dev</p>
-          </div>
-          <button>
-            <div className="hover:bg-white/10 p-3 rounded-full">
-              <HiOutlineDotsVertical className="text-white/50" />
-            </div>
-          </button>
-        </div>
-        <div className="grid grid-cols-4 gap-3 mt-3">
-          <div className="bg-background-primary/50 hover:bg-background-primary/20 p-3 rounded-md flex items-center justify-center text-white">
-            <FaDoorOpen />
-          </div>
-          <div className="bg-background-primary/50 hover:bg-background-primary/20 p-3 rounded-md flex items-center justify-center text-white">
-            <FaUser />
-          </div>
-          <div className="bg-background-primary/50 hover:bg-background-primary/20 p-3 rounded-md flex items-center justify-center text-white">
-            <FaLockOpen />
-          </div>
-          <div className="bg-background-primary/50 hover:bg-background-primary/20 p-3 rounded-md flex items-center justify-center text-white">
-            <FaClock />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Folder() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    // Add click event listener
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      // Remove the event listener
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuRef, isMenuOpen]);
-
-  return (
-    <div className="relative">
-      <div className="bg-background-secondary p-3 rounded-md flex gap-3 items-center shadow-md hover:bg-opacity-75 cursor-pointer">
-        <div className="p-3 bg-background-primary/50 rounded-full shadow-md">
-          <FaFolder className="text-white/50" />
-        </div>
-        <div className="text-xs w-4/6">
-          <p className="text-white/50">Folder Name</p>
-          <p className="text-white">10 items</p>
-        </div>
-        <button onClick={() => setIsMenuOpen(true)}>
-          <div className="hover:bg-white/10 p-3 rounded-full">
-            <HiOutlineDotsVertical className="text-white/50" />
-          </div>
-        </button>
-      </div>
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            ref={menuRef}
-            initial={{ x: 50, y: -50, scale: 0.5, type: "spring" }}
-            animate={{
-              x: 0,
-              y: 0,
-              scale: 1,
-              type: "spring",
-              transition: { type: "spring", stiffness: 400 },
-            }}
-            exit={{ x: 50, y: -50, scale: 0.5, opacity: 0 }}
-            transition={{
-              duration: 0.1,
-            }}
-            className="absolute bottom right-0 z-50 bg-background-secondary rounded-md p-3 flex flex-col m-3 shadow-md"
-          >
-            <div
-              className="flex items-center hover:bg-border-light p-2 rounded-md text-white cursor-pointer"
-              onClick={() => console.log("Rename clicked")}
-            >
-              <FaPencilAlt />
-              <p className="ml-3">Rename</p>
-            </div>
-            <div
-              className="flex items-center hover:bg-border-light p-2 rounded-md text-red-400 cursor-pointer"
-              onClick={() => console.log("Delete clicked")}
-            >
-              <FaTrash />
-              <p className="ml-3">Delete</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

@@ -8,14 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'body': 'inset 2 8px 8px 0 rgba(0, 0, 0, 0.06)',
+      },
       colors: {
         background: {
-          primary: '#1A202C',
-          secondary: '#2D3748',
-        },
-        text: {
-          primary: '#F7FAFC',
-          secondary: '#CBD5E0',
+          primary: '#1C1D21',
+          secondary: '#272727',
+          third: "#393939"
         },
         accent: {
           blue: '#4299E1',
