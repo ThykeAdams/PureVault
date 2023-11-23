@@ -69,7 +69,10 @@ export default function App() {
               <div className="gap-1">
                 <div className="grid grid-cols-2 gap-2">
                   {[1, 2, 3, 4, 5, 6].map((item, i) => (
-                    <div className="bg-background-secondary p-3 shadow-xl rounded-2xl hover:scale-[1.02] duration-300 w-full flex justify-between cursor-pointer">
+                    <div
+                      key={i}
+                      className="bg-background-secondary p-3 shadow-xl rounded-2xl hover:scale-[1.02] duration-300 w-full flex justify-between cursor-pointer"
+                    >
                       <div className="flex gap-3">
                         <div className="shadow-lg shadow-background-primary rounded-full">
                           <img
@@ -110,10 +113,13 @@ export default function App() {
             </div>
           </div>
           <div className="col-span-2">
-            Frequent Sites
+            Favorite Sites
             <div className="grid-cols-6 grid gap-2">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((favorite, i) => (
-                <div key={i} className="bg-background-secondary rounded-xl">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((favorite, i) => (
+                <div
+                  key={i}
+                  className="bg-background-secondary rounded-xl shadow-xl"
+                >
                   <div
                     style={{
                       backgroundPosition: "center",
