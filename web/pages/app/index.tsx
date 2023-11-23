@@ -4,6 +4,7 @@ import Head from "@/components/utility/Head";
 import {
   FaChevronDown,
   FaCreditCard,
+  FaExclamationCircle,
   FaExclamationTriangle,
   FaLock,
   FaMailBulk,
@@ -68,7 +69,38 @@ export default function App() {
               <p className="px-10">Recently Used</p>
               <div className="gap-1">
                 <div className="grid grid-cols-2 gap-2">
-                  {[1, 2, 3, 4, 5, 6].map((item, i) => (
+                  {[
+                    {
+                      name: "Discord",
+                      url: "https://discord.com",
+                      email: "my@discord.com",
+                    },
+                    {
+                      name: "Google",
+                      url: "https://google.com",
+                      email: "my@gmail.com",
+                    },
+                    {
+                      name: "Reddit",
+                      url: "https://reddit.com",
+                      email: "my@reddit.com",
+                    },
+                    {
+                      name: "X",
+                      url: "https://x.com",
+                      email: "my@x.com",
+                    },
+                    {
+                      name: "Github",
+                      url: "https://github.com",
+                      email: "my@github.com",
+                    },
+                    {
+                      name: "ChatGPT",
+                      url: "https://chat.openai.com",
+                      email: "my@openai.com",
+                    },
+                  ].map((item, i) => (
                     <div
                       key={i}
                       className="bg-background-secondary p-3 shadow-xl rounded-2xl hover:scale-[1.02] duration-300 w-full flex justify-between cursor-pointer"
@@ -77,14 +109,14 @@ export default function App() {
                         <div className="shadow-lg shadow-background-primary rounded-full">
                           <img
                             className="w-12 rounded-full"
-                            src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${"https://discord.com"}&size=128`}
+                            src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${item.url}&size=128`}
                           />
                         </div>
                         <div>
-                          <p>Discord</p>
+                          <p>{item.name}</p>
                           <div className="flex items-center gap-1 opacity-50">
                             <IoIosMail />
-                            <p className="text-sm">discord@thyke.dev</p>
+                            <p className="text-sm">{item.email}</p>
                           </div>
                         </div>
                       </div>
@@ -105,9 +137,45 @@ export default function App() {
               <div>
                 <p>Your Web Stats</p>
               </div>
-              <div className=" overflow-hidden">
-                <div className="scale-150  p-10">
-                  <Guage progress={50} />
+              <div className="flex justify-between">
+                <div className="overflow-hidden">
+                  <div className="scale-[1.2]  p-10">
+                    <Guage progress={90} />
+                  </div>
+
+                  <p className="text-center font-bold">Password Strength</p>
+                </div>
+                <div className="overflow-hidden">
+                  <div className="scale-150  p-10">
+                    <Guage progress={95} />
+                  </div>
+                  <p className="text-center font-bold">Overall Score</p>
+                </div>
+                <div className="overflow-hidden">
+                  <div className="scale-[1.2]  p-10">
+                    <Guage progress={70} />
+                  </div>
+                  <p className="text-center font-bold">Account Security</p>
+                </div>
+              </div>
+              <div>
+                <div className="flex gap-2 mt-3">
+                  <span className="flex items-center bg-background-third gap-1 text-xs rounded-md p-1">
+                    <FaExclamationCircle /> Pro Tip!
+                  </span>
+                  Boost Your Security Score for Enhanced Protection
+                </div>
+                <div className="text-xs opacity-50 mt-2">
+                  Your Security Score is your digital shield against cyber
+                  threats. Just like a higher score in a game means better
+                  performance, a higher Security Score signifies a stronger
+                  defense against malicious actors. By regularly updating your
+                  passwords, enabling two-factor authentication, and staying
+                  vigilant about the links and attachments you open, you
+                  actively improve your score. Think of your Security Score as a
+                  health meter for your online safety; the stronger it is, the
+                  better your protection. Regularly check and enhance your score
+                  to stay ahead of cyber threats. Stay safe, stay secure!
                 </div>
               </div>
             </div>
@@ -115,29 +183,64 @@ export default function App() {
           <div className="col-span-2">
             Favorite Sites
             <div className="grid-cols-6 grid gap-2">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((favorite, i) => (
+              {[
+                {
+                  url: "https://discord.com",
+                  name: "Discord",
+                },
+                {
+                  url: "https://google.com",
+                  name: "Google",
+                },
+                {
+                  url: "https://x.com",
+                  name: "X",
+                },
+                {
+                  url: "https://github.com",
+                  name: "Github",
+                },
+                {
+                  url: "https://chat.openai.com",
+                  name: "ChatGPT",
+                },
+                {
+                  url: "https://minecraft.net",
+                  name: "Minecraft",
+                },
+                {
+                  url: "https://youtube.com",
+                  name: "YouTube",
+                },
+                {
+                  url: "https://twitch.tv",
+                  name: "Twitch",
+                },
+              ].map((favorite, i) => (
                 <div
                   key={i}
-                  className="bg-background-secondary rounded-xl shadow-xl"
+                  className="bg-background-secondary rounded-xl shadow-xl group cursor-pointer hover:scale-[1.02] duration-300"
                 >
                   <div
                     style={{
                       backgroundPosition: "center",
                       backgroundSize: "cover",
-                      backgroundImage: `url(https://api.apiflash.com/v1/urltoimage?access_key=6c73da62ff0f43aa8911af5558e97484&wait_until=page_loaded&url=https://discord.com)`,
+                      backgroundImage: `url(https://api.apiflash.com/v1/urltoimage?access_key=6c73da62ff0f43aa8911af5558e97484&wait_until=page_loaded&url=${favorite.url})`,
                     }}
                     className="w-full flex items-center justify-center relative rounded-t-xl"
                   >
-                    <div className="w-full h-full bg-black/90 absolute z-0 rounded-t-xl" />
+                    <div className="w-full h-full bg-black/90 group-hover:bg-black/10 duration-300 scale-[1.002] absolute z-0 rounded-t-xl" />
 
                     <div className="p-7 z-10">
                       <img
-                        className="w-14 rounded-full"
-                        src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${"https://discord.com"}&size=128`}
+                        className="w-14 rounded-full opacity-100 duration-300 group-hover:opacity-25"
+                        src={`https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${favorite.url}&size=128`}
                       />
                     </div>
                   </div>
-                  <div className="p-3"></div>
+                  <div className="p-3">
+                    <p>{favorite.name}</p>
+                  </div>
                 </div>
               ))}
             </div>

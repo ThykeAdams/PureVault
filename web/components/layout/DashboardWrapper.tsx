@@ -6,6 +6,7 @@ import {
   FaFolder,
   FaHome,
   FaIdBadge,
+  FaLock,
   FaMoon,
   FaStar,
   FaTrash,
@@ -25,13 +26,21 @@ const SideBarItems = [
         icon: <FaHome className="text-[#4299E1] group-hover:text-white" />,
       },
       {
+        name: "All Items",
+        subValue: "18",
+        link: "/app",
+        icon: <FaLock className="text-[#42e1b9] group-hover:text-white" />,
+      },
+      {
         name: "Favorites",
+        subValue: "9",
         link: "/app",
         icon: <FaStar className="text-[#ECC94B] group-hover:text-white" />,
       },
       {
         name: "Trash",
         link: "/app",
+        subValue: "3",
         icon: <FaTrash className="text-[#F56565] group-hover:text-white" />,
       },
     ],
@@ -94,10 +103,13 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
               {group.items.map((item, index) => (
                 <div
                   key={index}
-                  className="mx-2 hover:bg-blue-400 rounded-md p-1 flex items-center text- cursor-pointer gap-2 group"
+                  className="mx-2 hover:bg-blue-400 rounded-md p-1 flex items-center justify-between text- cursor-pointer gap-2 group"
                 >
-                  {item.icon}
-                  <p>{item.name}</p>
+                  <div className="flex items-center gap-2">
+                    {item.icon}
+                    <p>{item.name}</p>
+                  </div>
+                  <p className="text-xs opacity-50">{item.subValue || ""}</p>
                 </div>
               ))}
             </div>
