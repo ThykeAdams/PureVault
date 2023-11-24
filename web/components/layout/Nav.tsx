@@ -5,7 +5,7 @@ import { FaMoon } from "react-icons/fa";
 type NavBarProps = {};
 
 export default function NavBar({}: NavBarProps) {
-  const [accountOpen, setAccountOpen] = useState(true);
+  const [accountOpen, setAccountOpen] = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: any) => {
