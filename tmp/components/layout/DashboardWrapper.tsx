@@ -13,6 +13,7 @@ import {
   FaTrash,
 } from "react-icons/fa";
 import NavBar from "./Nav";
+import { motion } from "framer-motion";
 
 type DashboardWrapperProps = {
   children: ReactNode;
@@ -81,42 +82,34 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  return (
-    <div className="w-screen h-screen overflow-hidden">
-      {/* Sidebar Toggle Button for Mobile */}
+  const handleClickOutside = (event: any) => {
+    // Check if the click is outside the sidebar and the sidebar is open
+    if (isSidebarOpen && !event.target.closest(".sidebar")) {
+      setSidebarOpen(false);
+    }
+  };
 
+  return (
+    <div
+      className="w-screen h-screen overflow-hidden"
+      onClick={handleClickOutside}
+    >
       <NavBar />
 
       <div className="flex h-screen relative">
         {/* Sidebar */}
-        <div className="absolute md:relative md:flex z-[51] shadow-lg">
-          <div
-            className={`${
-              isSidebarOpen ? "block" : "hidden"
-            } md:w-64 bg-background-secondary p-3 flex-col gap-3 sm:block md:flex h-screen`}
+        <div className="flex relative">
+          <motion.div
+            initial={{ x: "-100%" }}
+            animate={{ x: isSidebarOpen ? 0 : "-100%" }}
+            transition={{ type: "just" }}
+            className="absolute md:relative md:flex z-[51] shadow-lg sidebar"
           >
-            {SideBarItems.map((group, i) => (
-              <div key={i} className="mb-10">
-                <p className="text-sm opacity-50">{group.name}</p>
-                {group.items.map((item, index) => (
-                  <div
-                    key={index}
-                    onClick={toggleSidebar} // Dismiss sidebar on item click
-                    className="mx-2 hover:bg-blue-400 rounded-md p-1 flex items-center justify-between text- cursor-pointer gap-2 group"
-                  >
-                    <div className="flex items-center gap-2">
-                      {item.icon}
-                      <p>{item.name}</p>
-                    </div>
-                    <p className="text-xs opacity-50">{item.subValue || ""}</p>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-col">
+            <Sidebar onClick={toggleSidebar} />
+          </motion.div>
+          {!isSidebarOpen && (
             <div
-              className="bg-background-secondary z-[51] md:hidden flex-col gap-3 p-3 rounded-r-lg mt-10"
+              className="bg-background-secondary shadow-lg absolute -0 z-[50] md:hidden flex-col gap-3 p-3 rounded-r-lg mt-10"
               onClick={toggleSidebar}
             >
               <FaChevronLeft
@@ -125,11 +118,12 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
                 }
               />
             </div>
-          </div>
+          )}
         </div>
+
         {/* Main Content */}
         <div
-          className={`dashboard-bg overflow-x-hidden overflow-y-auto relative p-10 pt-20 ${
+          className={`dashboard-bg overflow-y-auto relative md:p-10 pt-28 ${
             isSidebarOpen && "blur-sm md:blur-none"
           }`}
         >
@@ -141,11 +135,35 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
   );
 }
 
+function Sidebar({ onClick }: { onClick: () => void }) {
+  return (
+    <div className="w-72 md:w-64 bg-background-secondary p-3 flex-col gap-3 sm:block md:flex h-screen">
+      {SideBarItems.map((group, i) => (
+        <div key={i} className="mb-10">
+          <p className="text-sm opacity-50">{group.name}</p>
+          {group.items.map((item, index) => (
+            <div
+              key={index}
+              onClick={onClick} // Dismiss sidebar on item click
+              className="mx-2 hover:bg-blue-400 rounded-md p-1 flex items-center justify-between text- cursor-pointer gap-2 group"
+            >
+              <div className="flex items-center gap-2">
+                {item.icon}
+                <p>{item.name}</p>
+              </div>
+              <p className="text-xs opacity-50">{item.subValue || ""}</p>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function PathParser() {
   const router = useRouter();
 
   let split = router.pathname.split("/").slice(2);
-  console.log(split);
 
   return (
     <div className="flex absolute top-0 left-0">
