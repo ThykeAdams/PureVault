@@ -3,9 +3,11 @@ import Guage from "@/components/utility/Guage";
 import Head from "@/components/utility/Head";
 import {
   FaChevronDown,
+  FaClock,
   FaCreditCard,
   FaExclamationCircle,
   FaExclamationTriangle,
+  FaList,
   FaLock,
   FaMailBulk,
   FaUserAlt,
@@ -238,8 +240,22 @@ export default function App() {
                       />
                     </div>
                   </div>
-                  <div className="p-3">
+                  <div className="p-3 flex justify-between">
                     <p>{favorite.name}</p>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="bg-background-primary/70 p-2 rounded-md hover:bg-background-third/50 cursor-pointer">
+                        <FaUserAlt />
+                      </div>
+                      <div className="bg-background-primary/70 p-2 rounded-md hover:bg-background-third/50 cursor-pointer">
+                        <FaLock />
+                      </div>
+                      <div className="bg-background-primary/70 p-2 rounded-md hover:bg-background-third/50 cursor-pointer">
+                        <FaClock />
+                      </div>
+                      <div className="bg-background-primary/70 p-2 rounded-md hover:bg-background-third/50 cursor-pointer">
+                        <FaList />
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}

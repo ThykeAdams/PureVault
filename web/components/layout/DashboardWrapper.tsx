@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import {
+  FaChevronLeft,
   FaCreditCard,
   FaFolder,
   FaHome,
@@ -11,6 +12,7 @@ import {
   FaStar,
   FaTrash,
 } from "react-icons/fa";
+import NavBar from "./Nav";
 
 type DashboardWrapperProps = {
   children: ReactNode;
@@ -73,49 +75,64 @@ const SideBarItems = [
 ];
 
 export default function DashboardWrapper({ children }: DashboardWrapperProps) {
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="w-screen h-screen">
-      {/* <div className="h-10 bg-background-secondary"></div> */}
-      <div className="absolute top-0 right-0 p-3 flex gap-2 z-50">
-        <div className="p-0.5 bg-background-secondary rounded-md shadow-md">
-          <div className="flex items-center gap-2 hover:bg-background-third rounded-md px-3 h-full cursor-pointer">
-            <FaMoon />
-          </div>
-        </div>
-        <div className="p-0.5 bg-background-secondary rounded-md cursor-pointer shadow-md">
-          <div className="flex gap-2 hover:bg-background-third rounded-md px-3">
-            <img
-              className="h-12 rounded-full border-4 border-background-third"
-              src="https://avatars.githubusercontent.com/u/45541936?v=4"
-            />
-            <div>
-              <p>Thykie</p>
-              <p className="text-xs opacity-50">thyke@thyke.dev</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="flex h-screen">
-        <div className="w-64 bg-background-secondary p-3 flex flex-col gap-3">
-          {SideBarItems.map((group, i) => (
-            <div key={i} className="mb-10">
-              <p className="text-sm opacity-50">{group.name}</p>
-              {group.items.map((item, index) => (
-                <div
-                  key={index}
-                  className="mx-2 hover:bg-blue-400 rounded-md p-1 flex items-center justify-between text- cursor-pointer gap-2 group"
-                >
-                  <div className="flex items-center gap-2">
-                    {item.icon}
-                    <p>{item.name}</p>
+    <div className="w-screen h-screen overflow-hidden">
+      {/* Sidebar Toggle Button for Mobile */}
+
+      <NavBar />
+
+      <div className="flex h-screen relative">
+        {/* Sidebar */}
+        <div className="absolute md:relative md:flex z-[51] shadow-lg">
+          <div
+            className={`${
+              isSidebarOpen ? "block" : "hidden"
+            } md:w-64 bg-background-secondary p-3 flex-col gap-3 sm:block md:flex h-screen`}
+          >
+            {SideBarItems.map((group, i) => (
+              <div key={i} className="mb-10">
+                <p className="text-sm opacity-50">{group.name}</p>
+                {group.items.map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={toggleSidebar} // Dismiss sidebar on item click
+                    className="mx-2 hover:bg-blue-400 rounded-md p-1 flex items-center justify-between text- cursor-pointer gap-2 group"
+                  >
+                    <div className="flex items-center gap-2">
+                      {item.icon}
+                      <p>{item.name}</p>
+                    </div>
+                    <p className="text-xs opacity-50">{item.subValue || ""}</p>
                   </div>
-                  <p className="text-xs opacity-50">{item.subValue || ""}</p>
-                </div>
-              ))}
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col">
+            <div
+              className="bg-background-secondary z-[51] md:hidden flex-col gap-3 p-3 rounded-r-lg mt-10"
+              onClick={toggleSidebar}
+            >
+              <FaChevronLeft
+                className={
+                  isSidebarOpen ? "rotate-0" : "rotate-180" + " duration-300"
+                }
+              />
             </div>
-          ))}
+          </div>
         </div>
-        <div className="dashboard-bg overflow-x-hidden overflow-y-auto relative p-10 pt-20">
+        {/* Main Content */}
+        <div
+          className={`dashboard-bg overflow-x-hidden overflow-y-auto relative p-10 pt-20 ${
+            isSidebarOpen && "blur-sm md:blur-none"
+          }`}
+        >
           <PathParser />
           {children}
         </div>

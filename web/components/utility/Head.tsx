@@ -35,7 +35,7 @@ const Head: FC<BaseProps> = ({ title }) => {
       />
       <meta name="keywords" content="Password Manager, Secrets, Developer" />
       <meta name="robots" content="index, follow" />
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="language" content="English" />
       <meta name="author" content="Thyke Adams" />
     </NHead>
