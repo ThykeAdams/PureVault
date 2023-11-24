@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import NavBar from "./Nav";
 import { motion } from "framer-motion";
+import useWindowSize from "@/hooks/useWindowSize";
 
 type DashboardWrapperProps = {
   children: ReactNode;
@@ -78,11 +79,14 @@ const SideBarItems = [
 export default function DashboardWrapper({ children }: DashboardWrapperProps) {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
+  const { width } = useWindowSize();
+
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
   const handleClickOutside = (event: any) => {
+    if (width > 768) return;
     // Check if the click is outside the sidebar and the sidebar is open
     if (isSidebarOpen && !event.target.closest(".sidebar")) {
       setSidebarOpen(false);
