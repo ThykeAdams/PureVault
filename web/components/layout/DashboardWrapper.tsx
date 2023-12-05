@@ -127,7 +127,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
 
         {/* Main Content */}
         <div
-          className={`dashboard-bg overflow-y-auto relative md:p-10 pt-28 ${
+          className={`dashboard-bg overflow-y-auto overflow-x-hidden relative md:p-10 pt-28 ${
             isSidebarOpen && "blur-sm md:blur-none"
           }`}
         >

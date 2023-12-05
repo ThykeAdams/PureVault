@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int              @id @default(autoincrement())
+  name           String
+  email          String           @unique
+  hashedPassword String
+  passwords      StoredPassword[]
+  devices        Device[]
+  sharedAccesses SharedAccess[]
+  files          File[]
+}
+
+model StoredPassword {
+  id          Int            @id @default(autoincrement())
+  userId      Int
+  user        User           @relation(fields: [userId], references: [id])
+  encryptedPW String
+  site        String
+  favorited   Boolean        @default(false)
+  additional  Json? // For storing any additional details as JSON
+  sharedWith  SharedAccess[]
+}
+
+model Device {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+  type   String
+  name   String
+}
+
+model SharedAccess {
+  id               Int            @id @default(autoincrement())
+  storedPasswordId Int
+  storedPassword   StoredPassword @relation(fields: [storedPasswordId], references: [id])
+  userId           Int
+  user             User           @relation(fields: [userId], references: [id])
+}
+
+model File {
+  id         Int     @id @default(autoincrement())
+  userId     Int
+  user       User    @relation(fields: [userId], references: [id])
+  fileName   String
+  fileType   String
+  fileUrl    String // URL to access the file
+  encrypted  Boolean // Indicates if the file is encrypted
+  additional Json? // Optional field for any additional metadata
+}
